@@ -1,7 +1,6 @@
 cp -rf .fns ~/.fns
 cp -rf .alias ~/.alias
 
-
 if ! grep -q "source ~/.alias" ~/.zshrc; then
     echo "adding alias configuration `.alias` to .zshrc!"
     echo 'source ~/.alias' >> ~/.zshrc

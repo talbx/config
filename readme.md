@@ -1,3 +1,2 @@
 # config
-
-dotfiles configuration for my computer setup
+dotfiles configuration for my personal & profressional osx setup

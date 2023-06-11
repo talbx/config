@@ -17,3 +17,7 @@ function commit_chore {
 function commit_test {
     create_commit "test" "$1"
 }
+
+function commit_refactor {
+    create_commit "refactor" "$1"
+}
