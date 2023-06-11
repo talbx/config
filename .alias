@@ -1,0 +1,10 @@
+# k8s
+alias k='kubectl'
+alias p='python3'
+
+# git
+alias test='echo "hallo"'
+alias glog='git log --oneline'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias sourceprofile='source ~/.alias && source ~/.fns'
