@@ -11,6 +11,12 @@ brew "terraform"
 brew "yarn"
 brew "zsh-async"
 brew "zsh-autosuggestions"
+brew "yq"
+brew "jq"
+brew "grep"
+brew "helm"
+brew "starship"
+
 
 # casks
 cask "google-chrome"
@@ -24,6 +30,9 @@ cask "slack"
 cask "visual-studio-code"
 cask "adguard"
 cask "docker"
+cask "jetbrains-toolbox"
+cask "the-unarchiver"
+cask "font-fira-code"
 
 # font
 cask "font-caskaydia-cove-nerd-font"
