@@ -1,38 +1,78 @@
-create_commit(){
+# helper
+squash_last() {
+    git reset --soft HEAD~$1
+}
+
+# regular commits
+create_commit() {
     echo "running git commit -m '$1: $2'"
     git commit -m "$1: $2"
 }
 
-commit_feat(){
+commit_feat() {
     create_commit feat "$1"
 }
 
-commit_fix(){
+commit_fix() {
     create_commit fix "$1"
 }
 
-commit_chore(){
+commit_chore() {
     create_commit chore "$1"
 }
 
-commit_test(){
+commit_test() {
     create_commit test "$1"
 }
 
-commit_cleanup(){
+commit_cleanup() {
     create_commit cleanup "$1"
 }
 
-commit_fixup(){
+commit_fixup() {
     create_commit fixup "$1"
 }
 
-commit_docs(){
+commit_docs() {
     create_commit docs "$1"
 }
 
-squash_last(){
-  git reset --soft HEAD~$1
+# signed commits
+create_signed_commit(){
+    echo "running git commit -m '$1: $2'"
+    git commit -S -m "$1: $2"
+}
+
+signed_commit_feat(){
+    create_signed_commit feat "$1"
+}
+
+signed_commit_fix(){
+    create_signed_commit fix "$1"
+}
+
+signed_commit_chore(){
+    create_signed_commit chore "$1"
+}
+
+signed_commit_test(){
+    create_signed_commit test "$1"
+}
+
+signed_commit_cleanup(){
+    create_signed_commit cleanup "$1"
+}
+
+signed_commit_fixup(){
+    create_signed_commit fixup "$1"
+}
+
+signed_commit_refactor(){
+    create_signed_commit refactor "$1"
+}
+
+signed_commit_docs(){
+    create_signed_commit docs "$1"
 }
 
 eval "$(starship init bash)"

@@ -16,6 +16,7 @@ brew "jq"
 brew "grep"
 brew "helm"
 brew "starship"
+brew "git-delta"
 
 
 # casks

@@ -1,12 +1,14 @@
-# k8s
+# shortcuts
 alias k='kubectl'
 alias p='python3'
-
-# git
-alias test='echo "hallo"'
+alias tf='terraform'
+alias pi='pnpm i'
 alias glog='git log --oneline'
 alias sourceprofile='source ~/.alias && source ~/.fns'
+alias mci='mvn clean install'
+alias mcist='mvn clean install -DskipTests'
 
+# moving
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'

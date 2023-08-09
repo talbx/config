@@ -1,18 +1,18 @@
 cp -rf .fns ~/.fns
 cp -rf .alias ~/.alias
+cp -rf .gitconfig /.gitconfig
 
-if ! grep -q "source ~/.alias" ~/.zshrc; then
-    echo "adding alias configuration `.alias` to .zshrc!"
-    echo 'source ~/.alias' >> ~/.zshrc
-else
-    echo "alias configuration already part of .zshrc"
-fi
+function append() {
+    if ! grep -q "source ~/${1}" ~/.zshrc; then
+        echo "adding ${1} configuration $(${1}) to .zshrc!"
+        echo "source ~/${1}" >>~/.zshrc
+    else
+        echo "${1} configuration already part of .zshrc"
+    fi
+}
 
-if ! grep -q "source ~/.fns" ~/.zshrc; then
-    echo "adding function configuration `.fns` to .zshrc!"
-    echo 'source ~/.fns' >> ~/.zshrc
-else
-    echo "function configuration already part of .zshrc"
-fi
+append ".alias"
+append ".fns"
+append ".gitconfig"
 
 source ~/.zshrc
