@@ -75,4 +75,3 @@ signed_commit_docs(){
     create_signed_commit docs "$1"
 }
 
-eval "$(starship init bash)"

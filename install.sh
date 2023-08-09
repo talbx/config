@@ -1,6 +1,6 @@
 cp -rf .fns ~/.fns
 cp -rf .alias ~/.alias
-cp -rf .gitconfig /.gitconfig
+cp -rf .gitconfig ~/.gitconfig
 
 function append() {
     if ! grep -q "source ~/${1}" ~/.zshrc; then
@@ -11,8 +11,17 @@ function append() {
     fi
 }
 
+function initStarship() {
+    if ! grep -q 'eval "$(starship init bash)"' ~/.zshrc; then
+        echo "adding starship bootstrapper to .zshrc!"
+        echo 'eval "$(starship init bash)"' >> ~/.zshrc
+    else
+        echo "starship bootstrapper already part of .zshrc"
+    fi
+}
+
 append ".alias"
 append ".fns"
-append ".gitconfig"
+initStarship
 
 source ~/.zshrc
