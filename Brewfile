@@ -33,7 +33,7 @@ cask "adguard"
 cask "docker"
 cask "jetbrains-toolbox"
 cask "the-unarchiver"
-cask "font-fira-code"
+#cask "font-fira-code"
 
 # font
 cask "font-caskaydia-cove-nerd-font"

@@ -20,8 +20,17 @@ function initStarship() {
     fi
 }
 
+echo "configuring dotfiles"
 append ".alias"
 append ".fns"
-initStarship
 
+# echo "setting up starship"
+# initStarship
+
+echo "installing all homebrew dependencies"
+brew bundle install
+
+echo "sourcing zshrc"
 source ~/.zshrc
+
+echo "-- done. ready to go! --"
