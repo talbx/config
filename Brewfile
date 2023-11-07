@@ -17,11 +17,12 @@ brew "grep"
 brew "helm"
 brew "starship"
 brew "git-delta"
+brew "restfox"
+brew "go-task"
 
 
 # casks
 cask "google-chrome"
-cask "insomnia"
 cask "iterm2"
 cask "microsoft-teams"
 cask "notion"
