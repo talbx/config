@@ -11,7 +11,7 @@ alias sourcefns='source ~/.fns'
 alias sourceprofile='source ~/.zshrc'
 alias mci='mvn clean install'
 alias mcist='mvn clean install -DskipTests'
-
+alias gpr='git pull -r'
 # moving
 alias ..='cd ..'
 alias ...='cd ../..'
