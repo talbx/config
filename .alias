@@ -2,6 +2,8 @@
 alias k='kubectl'
 alias p='python3'
 alias tf='terraform'
+#!/usr/bin/env bash
+
 alias pi='pnpm i'
 alias glog='git log --oneline'
 alias sourcealias='source ~/.alias'

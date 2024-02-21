@@ -1,4 +1,4 @@
-# helper
+#!/usr/bin/env bash
 squash_last() {
     git reset --soft HEAD~$1
 }
@@ -7,6 +7,10 @@ squash_last() {
 create_commit() {
     echo "running git commit -m '$1: $2'"
     git commit -m "$1: $2"
+}
+
+commit_infra() {
+    create_commit infra "$1"
 }
 
 commit_feat() {
@@ -43,6 +47,10 @@ create_signed_commit(){
     git commit -S -m "$1: $2"
 }
 
+signed_commit_infra(){
+    create_signed_commit infra "$1"
+}
+
 signed_commit_feat(){
     create_signed_commit feat "$1"
 }
@@ -75,3 +83,95 @@ signed_commit_docs(){
     create_signed_commit docs "$1"
 }
 
+# BASH
+# Tested kubectl version `v1.23.6`
+# Make all kubectl completion fzf
+command -v fzf >/dev/null 2>&1 && { 
+	source <(kubectl completion bash | sed 's#"${requestComp}" 2>/dev/null#"${requestComp}" 2>/dev/null | head -n -1 | fzf  --multi=0 #g')
+}
+
+# ZSH
+# Make all kubectl completion fzf
+command -v fzf >/dev/null 2>&1 && { 
+	source <(kubectl completion zsh | sed 's#${requestComp} 2>/dev/null#${requestComp} 2>/dev/null | head -n -1 | fzf  --multi=0 #g')
+}
+
+# c - browse chrome history
+c() {
+  local cols sep google_history open
+  cols=$(( COLUMNS / 3 ))
+  sep='{::}'
+
+  if [ "$(uname)" = "Darwin" ]; then
+    google_history="$HOME/Library/Application Support/Arc/User Data/Default/History"
+    open=open
+  else
+    google_history="$HOME/.config/google-chrome/Default/History"
+    open=xdg-open
+  fi
+  cp -f "$google_history" /tmp/h
+  sqlite3 -separator $sep /tmp/h \
+    "select substr(title, 1, $cols), url
+     from urls order by last_visit_time desc" |
+  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
+  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open > /dev/null 2> /dev/null
+}
+
+# gco - checkout git branch
+function gco() {
+    local branches branch
+    branches=$(git --no-pager branch -vv) &&
+        branch=$(echo "$branches" | fzf +m) &&
+        git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
+
+# arc - browse chrome history
+function arc() {
+    local cols sep google_history open
+    cols=$((COLUMNS / 3))
+    sep='{::}'
+
+    if [ "$(uname)" = "Darwin" ]; then
+        google_history="$HOME/Library/Application Support/Arc/User Data/Default/History"
+        open=open
+    else
+        google_history="$HOME/.config/google-chrome/Default/History"
+        open=xdg-open
+    fi
+    cp -f "$google_history" /tmp/h
+    sqlite3 -separator $sep /tmp/h \
+        "select substr(title, 1, $cols), url
+     from urls order by last_visit_time desc" |
+        awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
+        fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open >/dev/null 2>/dev/null
+}
+
+function sco() {
+    OUT=$(echo $(fzf))
+    if [[ -z "$OUT" ]]; then
+        return 0
+    else
+        echo "file selected: $OUT"
+        code $OUT
+    fi
+}
+
+function cdf() {
+    if [[ "$#" != 0 ]]; then
+        builtin cd "$@";
+        return
+    fi
+    while true; do
+        local lsd=$(echo ".." && ls -p | grep '/$' | sed 's;/$;;')
+        local dir="$(printf '%s\n' "${lsd[@]}" |
+            fzf --reverse --preview '
+                __cd_nxt="$(echo {})";
+                __cd_path="$(echo $(pwd)/${__cd_nxt} | sed "s;//;/;")";
+                echo $__cd_path;
+                echo;
+                ls -p --color=always "${__cd_path}";
+        ')"
+        [[ ${#dir} != 0 ]] || return 0
+        builtin cd "$dir" &> /dev/null
+    done
+}

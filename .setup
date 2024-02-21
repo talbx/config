@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+function initTools(){
+    eval "$(zoxide init zsh)"
+    eval "$(starship init zsh)"
+}

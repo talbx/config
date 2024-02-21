@@ -1,4 +1,7 @@
+#!/usr/bin/env bash
+
 cp -rf .fns ~/.fns
+cp -rf .setup ~/.setup
 cp -rf .alias ~/.alias
 cp -rf .gitconfig ~/.gitconfig
 
@@ -11,24 +14,18 @@ function append() {
     fi
 }
 
-function initStarship() {
-    if ! grep -q 'eval "$(starship init bash)"' ~/.zshrc; then
-        echo "adding starship bootstrapper to .zshrc!"
-        echo 'eval "$(starship init bash)"' >> ~/.zshrc
-    else
-        echo "starship bootstrapper already part of .zshrc"
-    fi
-}
-
 echo "configuring dotfiles"
 append ".alias"
 append ".fns"
+append ".setup"
 
 # echo "setting up starship"
 # initStarship
 
 echo "installing all homebrew dependencies"
 brew bundle install
+
+initTools
 
 echo "sourcing zshrc"
 source ~/.zshrc

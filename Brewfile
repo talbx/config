@@ -19,26 +19,25 @@ brew "starship"
 brew "git-delta"
 brew "restfox"
 brew "go-task"
-
+brew "fzf"
+brew "zoxide"
+brew "go-task"
 
 # casks
+cask "arc"
+cask "adguard"
+cask "docker"
+cask "font-caskaydia-cove-nerd-font"
 cask "google-chrome"
 cask "iterm2"
+cask "jetbrains-toolbox"
 cask "microsoft-teams"
 cask "notion"
 cask "raycast"
 cask "rectangle"
 cask "slack"
-cask "visual-studio-code"
-cask "adguard"
-cask "docker"
-cask "jetbrains-toolbox"
 cask "the-unarchiver"
-cask "arc"
-#cask "font-fira-code"
-
-# font
-cask "font-caskaydia-cove-nerd-font"
+cask "visual-studio-code"
 
 # optional
 cask "ilok-license-manager"
