@@ -1,4 +1,21 @@
 #!/usr/bin/env bash
+
+setup_git() {
+    echo "preparing git.."
+    git config --global user.name "talbx"
+    git config --global user.email "dev@talbx.de"
+}
+
+setup_ssh() {
+    echo "preparing ssh keys.."
+    eval "$(ssh-agent)" &>/dev/null
+    ssh-add ~/.ssh/ado-cloud &>/dev/null
+    ssh-add ~/.ssh/github-talbx &>/dev/null
+}
+
+setup_git
+setup_ssh
+
 squash_last() {
     git reset --soft HEAD~$1
 }
@@ -39,6 +56,10 @@ commit_fixup() {
 
 commit_docs() {
     create_commit docs "$1"
+}
+
+commit_refactor() {
+    create_commit refactor "$1"
 }
 
 # signed commits
@@ -84,39 +105,6 @@ signed_commit_docs(){
 }
 
 # BASH
-# Tested kubectl version `v1.23.6`
-# Make all kubectl completion fzf
-command -v fzf >/dev/null 2>&1 && { 
-	source <(kubectl completion bash | sed 's#"${requestComp}" 2>/dev/null#"${requestComp}" 2>/dev/null | head -n -1 | fzf  --multi=0 #g')
-}
-
-# ZSH
-# Make all kubectl completion fzf
-command -v fzf >/dev/null 2>&1 && { 
-	source <(kubectl completion zsh | sed 's#${requestComp} 2>/dev/null#${requestComp} 2>/dev/null | head -n -1 | fzf  --multi=0 #g')
-}
-
-# c - browse chrome history
-c() {
-  local cols sep google_history open
-  cols=$(( COLUMNS / 3 ))
-  sep='{::}'
-
-  if [ "$(uname)" = "Darwin" ]; then
-    google_history="$HOME/Library/Application Support/Arc/User Data/Default/History"
-    open=open
-  else
-    google_history="$HOME/.config/google-chrome/Default/History"
-    open=xdg-open
-  fi
-  cp -f "$google_history" /tmp/h
-  sqlite3 -separator $sep /tmp/h \
-    "select substr(title, 1, $cols), url
-     from urls order by last_visit_time desc" |
-  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
-  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open > /dev/null 2> /dev/null
-}
-
 # gco - checkout git branch
 function gco() {
     local branches branch
@@ -154,24 +142,4 @@ function sco() {
         echo "file selected: $OUT"
         code $OUT
     fi
-}
-
-function cdf() {
-    if [[ "$#" != 0 ]]; then
-        builtin cd "$@";
-        return
-    fi
-    while true; do
-        local lsd=$(echo ".." && ls -p | grep '/$' | sed 's;/$;;')
-        local dir="$(printf '%s\n' "${lsd[@]}" |
-            fzf --reverse --preview '
-                __cd_nxt="$(echo {})";
-                __cd_path="$(echo $(pwd)/${__cd_nxt} | sed "s;//;/;")";
-                echo $__cd_path;
-                echo;
-                ls -p --color=always "${__cd_path}";
-        ')"
-        [[ ${#dir} != 0 ]] || return 0
-        builtin cd "$dir" &> /dev/null
-    done
 }

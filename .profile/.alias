@@ -1,17 +1,20 @@
+#!/usr/bin/env bash
 # shortcuts
 alias k='kubectl'
 alias p='python3'
 alias tf='terraform'
-#!/usr/bin/env bash
 
 alias pi='pnpm i'
 alias glog='git log --oneline'
-alias sourcealias='source ~/.alias'
-alias sourcefns='source ~/.fns'
-alias sourceprofile='source ~/.zshrc'
+alias sourceprofile='source ~/.profile/.profile'
+alias sourcezsh='source ~/.zsh'
 alias mci='mvn clean install'
 alias mcist='mvn clean install -DskipTests'
 alias gpr='git pull -r'
+alias t='task'
+alias dev="cd ~/dev"
+alias sourcecode="cd ~/dev"
+
 # moving
 alias ..='cd ..'
 alias ...='cd ../..'

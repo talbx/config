@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-cp -rf .fns ~/.fns
-cp -rf .setup ~/.setup
-cp -rf .alias ~/.alias
+cp -rf .profile/ ~/.profile
 cp -rf .gitconfig ~/.gitconfig
 
 function append() {
@@ -14,10 +12,8 @@ function append() {
     fi
 }
 
-echo "configuring dotfiles"
-append ".alias"
-append ".fns"
-append ".setup"
+echo "configuring dotfiles..."
+append ".profile/.profile"
 
 # echo "setting up starship"
 # initStarship
@@ -25,9 +21,9 @@ append ".setup"
 echo "installing all homebrew dependencies"
 brew bundle install
 
-initTools
+#initTools
 
-echo "sourcing zshrc"
+echo "sourcing .zshrc"
 source ~/.zshrc
 
 echo "-- done. ready to go! --"
