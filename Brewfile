@@ -18,6 +18,9 @@ brew "git-delta"
 brew "go-task"
 brew "fzf"
 brew "starship"
+brew "eza"
+brew "bat"
+brew "zoxide"
 
 # casks
 cask "arc"

@@ -15,6 +15,13 @@ alias t='task'
 alias dev="cd ~/dev"
 alias sourcecode="cd ~/dev"
 
+# nice 
+alias cat='bat'
+alias ls="eza --color=always --long --git --icons=always --no-user --no-time"
+alias cd="z"
+alias sco='code $(fzf)'
+
+
 # moving
 alias ..='cd ..'
 alias ...='cd ../..'

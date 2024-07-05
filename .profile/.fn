@@ -16,6 +16,12 @@ setup_ssh() {
 setup_git
 setup_ssh
 
+source ./fzf-git.sh
+
+gco() {
+  _fzf_git_each_ref --no-multi | xargs git checkout
+}
+
 squash_last() {
     git reset --soft HEAD~$1
 }
